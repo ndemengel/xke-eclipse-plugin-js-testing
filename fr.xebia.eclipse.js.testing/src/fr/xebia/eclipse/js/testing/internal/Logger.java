@@ -6,6 +6,9 @@ import org.eclipse.core.runtime.Status;
 
 import fr.xebia.eclipse.js.testing.JsTesting;
 
+/**
+ * Convenience wrapper for the real logger.
+ */
 public class Logger {
 
 	private final ILog log;

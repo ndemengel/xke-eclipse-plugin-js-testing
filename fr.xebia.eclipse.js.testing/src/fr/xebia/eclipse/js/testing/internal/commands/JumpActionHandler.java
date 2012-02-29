@@ -31,6 +31,7 @@ public class JumpActionHandler extends AbstractHandler {
 				.get().getLogger()));
 	}
 
+	/** for testing */
 	public JumpActionHandler(JsTesting plugin, FileMatcher fileMatcher) {
 		this.logger = plugin.getLogger();
 		this.fileMatcher = fileMatcher;
@@ -38,19 +39,13 @@ public class JumpActionHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
-		IFile selectedFile = getSelectedJsFile(event);
-		if (selectedFile == null) {
-			return null;
-		}
+		// TODO XKE: open corresponding test/source file
+		// get current JS file
+		// find its corresponding test/source file (use fileMatcher)
+		// open resulting file in default editor
 
-		IFile result = fileMatcher.match(selectedFile);
-
-		if (result == null) {
-			MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.pluginName,
-					Messages.jump_noMatchingFile);
-		} else {
-			openEditor(result, event);
-		}
+		MessageDialog.openInformation(HandlerUtil.getActiveShell(event), Messages.pluginName,
+				Messages.jump_noMatchingFile);
 
 		return null;
 	}

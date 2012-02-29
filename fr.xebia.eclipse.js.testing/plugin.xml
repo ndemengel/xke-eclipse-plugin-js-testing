@@ -15,11 +15,8 @@
          categoryId="fr.xebia.eclipse.js.testing.commands.category"/>
    </extension>
 
-   <extension point="org.eclipse.ui.bindings">
-      <key sequence="CTRL+J"
-         commandId="fr.xebia.eclipse.js.testing.commands.jumpCommand"
-         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
-   </extension>
+   <!-- TODO XKE: bind the command defined above to the key sequence "Ctrl+J" - for Windows and UX OSes -
+      or "Command+J" - for Mac OS --> 
 
    <extension point="org.eclipse.core.expressions.definitions">
       <definition id="fr.xebia.eclipse.js.testing.definitions.jsFile">
@@ -65,37 +62,4 @@
       </page>
    </extension>
    
-   
-   <!-- Garbage -->
-   <!--
-   
-   // implement IStartup to use it
-   <extension point="org.eclipse.ui.startup">
-      <startup class="fr.xebia.eclipse.js.testing.JsTesting"/>
-   </extension>
-   
-   // a try at content types
-   <extension point="org.eclipse.core.runtime.contentTypes">
-      // a placeholder for setups where JSDT's official type is not available
-      <content-type id="fr.xebia.eclipse.js.testing.jsSource" 
-         name="JavaScript Source File" 
-         base-type="org.eclipse.core.runtime.text"
-         alias-for="org.eclipse.wst.jsdt.core.jsSource"
-         file-extensions="js"/>
-   </extension>
-   
-   <extension point="org.eclipse.core.expressions.definitions">
-      <definition id="fr.xebia.eclipse.js.testing.definitions.jsFile">
-         <iterate ifEmpty="false">
-            <adapt type="org.eclipse.core.resources.IFile">
-               <or>
-                  <test property="org.eclipse.core.resources.contentTypeId" value="fr.xebia.eclipse.js.testing.jsSource"/>
-                  <test property="org.eclipse.core.resources.contentTypeId" value="org.eclipse.wst.jsdt.core.jsSource"/>
-               </or>
-            </adapt>
-         </iterate>
-      </definition>
-   </extension>
-   
-   -->
 </plugin>

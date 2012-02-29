@@ -1,2 +1,4 @@
 .settings
 .gitignore
+.metadata
+bin

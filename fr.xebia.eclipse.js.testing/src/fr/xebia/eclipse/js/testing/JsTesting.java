@@ -6,6 +6,9 @@ import org.osgi.framework.BundleContext;
 import fr.xebia.eclipse.js.testing.internal.Logger;
 import fr.xebia.eclipse.js.testing.internal.Preferences;
 
+/**
+ * The plugin activator, also serves as a provider for preferences and logger.
+ */
 public class JsTesting extends AbstractUIPlugin {
 
 	public static final String PLUGIN_ID = "fr.xebia.eclipse.js.testing";

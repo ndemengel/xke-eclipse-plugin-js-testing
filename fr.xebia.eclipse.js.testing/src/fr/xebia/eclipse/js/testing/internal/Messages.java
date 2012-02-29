@@ -10,6 +10,7 @@ public class Messages extends NLS {
 	public static String pluginName;
 
 	static {
+		// populates static fields of this class with content of messages*.properties
 		NLS.initializeMessages(BUNDLE_NAME, Messages.class);
 	}
 

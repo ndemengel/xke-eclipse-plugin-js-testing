@@ -18,6 +18,7 @@ public class Preferences {
 
 	private static final String BASE = "fr.xebia.eclipse.js.testing.prefs.";
 	private static final String TEST_FILE_NAME_TEMPLATE = BASE + "testFileNameTemplate";
+	
 	public static final String DEFAULT_TEST_FILE_NAME_TEMPLATE = TestFileNamePattern.SRC_FILE_VARIABLE + "Test";
 
 	private final Logger logger;
@@ -38,6 +39,8 @@ public class Preferences {
 			return projectStores.get(project);
 		}
 
+		// AbstractUIPlugin comes with its own preference store, but it concerns the whole workspace
+		// so let's create stores for each project using the plugin
 		ProjectScope projectScope = new ProjectScope(project);
 		ScopedPreferenceStore store = new ScopedPreferenceStore(projectScope, JsTesting.PLUGIN_ID);
 		store.setSearchContexts(new IScopeContext[] { projectScope });

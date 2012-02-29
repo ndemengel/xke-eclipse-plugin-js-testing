@@ -2,10 +2,7 @@ package fr.xebia.eclipse.js.testing.internal.properties;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.jface.dialogs.Dialog;
-import org.eclipse.jface.dialogs.IMessageProvider;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ModifyEvent;
-import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -59,13 +56,8 @@ public class JsTestingPropertyPage extends PropertyPage {
 		testFileTemplateField = new Text(parent, SWT.SINGLE | SWT.BORDER);
 		testFileTemplateField.setLayoutData(labelAndFieldLayout);
 		testFileTemplateField.setText(projectPreferences.getTestFileNameTemplate());
-		testFileTemplateField.addModifyListener(new ModifyListener() {
-			@Override
-			public void modifyText(ModifyEvent event) {
-				validate();
-			}
-		});
-
+		// TODO XKE: trigger validation on field change
+		
 		GridData rowLayout = new GridData(GridData.HORIZONTAL_ALIGN_FILL);
 		rowLayout.horizontalSpan = 2;
 
@@ -88,25 +80,9 @@ public class JsTestingPropertyPage extends PropertyPage {
 	}
 
 	private void validate() {
-		String testFileTemplate = testFileTemplateField.getText();
-
-		String errorMsg = null;
-		if (testFileTemplate.isEmpty()) {
-			errorMsg = "You must enter a rule for naming test files";
-		} else if (!testFileTemplate.contains(TestFileNamePattern.SRC_FILE_VARIABLE)) {
-			errorMsg = "The rule for naming test files must use the variable " + TestFileNamePattern.SRC_FILE_VARIABLE;
-		} else if (testFileTemplate.length() == TestFileNamePattern.SRC_FILE_VARIABLE.length()) {
-			errorMsg = "Test files must have a name different from their corresponding source file";
-		}
-
-		if (errorMsg == null) {
-			setMessage(null);
-			setValid(true);
-		} else {
-			setMessage(errorMsg, IMessageProvider.ERROR);
-			setValid(false);
-			testFileTemplateField.forceFocus();
-		}
+		// TODO XKE: validate user template
+		// setMessage(errorMsg, IMessageProvider.ERROR);
+		// setValid(false);
 	}
 
 	@Override
@@ -120,8 +96,6 @@ public class JsTestingPropertyPage extends PropertyPage {
 	}
 
 	private void saveProperties() {
-		ProjectPreferences projectPreferences = preferences.get((IProject) getElement());
-		projectPreferences.setTestFileNameTemplate(testFileTemplateField.getText());
-		projectPreferences.save();
+		// TODO XKE: save user template (use preferences)
 	}
 }
