@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>   
+   <extension point="org.eclipse.team.core.fileTypes">
+      <fileTypes extension="js" type="text"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.commands">
+      <category id="fr.xebia.eclipse.js.testing.commands.category"
+         name="%plugin.name"/>
+      <command id="fr.xebia.eclipse.js.testing.commands.jumpCommand"
+         name="Jump To Test/Source"
+         defaultHandler="fr.xebia.eclipse.js.testing.internal.commands.JumpActionHandler"
+         description="Jump to the test or source associated to the current JS file."
+         categoryId="fr.xebia.eclipse.js.testing.commands.category"/>
+   </extension>
+
+   <extension point="org.eclipse.ui.bindings">
+      <key sequence="CTRL+J"
+         commandId="fr.xebia.eclipse.js.testing.commands.jumpCommand"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+   </extension>
+
+   <extension point="org.eclipse.core.expressions.definitions">
+      <definition id="fr.xebia.eclipse.js.testing.definitions.jsFile">
+         <iterate ifEmpty="false">
+            <adapt type="org.eclipse.core.resources.IFile">
+               <test property="org.eclipse.core.resources.name" value="*.js"/>
+            </adapt>
+         </iterate>
+      </definition>
+   </extension>
+   
+   <extension point="org.eclipse.ui.menus">
+      <menuContribution
+         locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <menu
+               label="%plugin.name"
+               mnemonic="J"
+               id="fr.xebia.eclipse.js.testing.menus.menu">
+            <command
+                  commandId="fr.xebia.eclipse.js.testing.commands.jumpCommand"
+                  mnemonic="J"/>
+            <visibleWhen checkEnabled="false">
+               <or>
+                  <with variable="activeMenuSelection">
+                     <reference definitionId="fr.xebia.eclipse.js.testing.definitions.jsFile"/>
+                  </with>
+                  <with variable="activeMenuEditorInput">
+                     <reference definitionId="fr.xebia.eclipse.js.testing.definitions.jsFile"/>
+                  </with>
+               </or>
+            </visibleWhen>
+         </menu>
+      </menuContribution>
+   </extension>
+   
+   <extension point="org.eclipse.ui.propertyPages">
+      <page id="fr.xebia.eclipse.js.testing.properties.mainPage"
+         name="%plugin.name"
+         class="fr.xebia.eclipse.js.testing.internal.properties.JsTestingPropertyPage">
+         <enabledWhen>
+            <adapt type="org.eclipse.core.resources.IProject"/>
+         </enabledWhen>
+      </page>
+   </extension>
+   
+   
+   <!-- Garbage -->
+   <!--
+   
+   // implement IStartup to use it
+   <extension point="org.eclipse.ui.startup">
+      <startup class="fr.xebia.eclipse.js.testing.JsTesting"/>
+   </extension>
+   
+   // a try at content types
+   <extension point="org.eclipse.core.runtime.contentTypes">
+      // a placeholder for setups where JSDT's official type is not available
+      <content-type id="fr.xebia.eclipse.js.testing.jsSource" 
+         name="JavaScript Source File" 
+         base-type="org.eclipse.core.runtime.text"
+         alias-for="org.eclipse.wst.jsdt.core.jsSource"
+         file-extensions="js"/>
+   </extension>
+   
+   <extension point="org.eclipse.core.expressions.definitions">
+      <definition id="fr.xebia.eclipse.js.testing.definitions.jsFile">
+         <iterate ifEmpty="false">
+            <adapt type="org.eclipse.core.resources.IFile">
+               <or>
+                  <test property="org.eclipse.core.resources.contentTypeId" value="fr.xebia.eclipse.js.testing.jsSource"/>
+                  <test property="org.eclipse.core.resources.contentTypeId" value="org.eclipse.wst.jsdt.core.jsSource"/>
+               </or>
+            </adapt>
+         </iterate>
+      </definition>
+   </extension>
+   
+   -->
+</plugin>
